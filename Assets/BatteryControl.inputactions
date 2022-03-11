@@ -1,0 +1,34 @@
+{
+    "name": "BatteryControl",
+    "maps": [
+        {
+            "name": "SwipeControl",
+            "id": "109c5676-403e-4bd7-8d26-49b5b4a9ba8e",
+            "actions": [
+                {
+                    "name": "MouseSwipe",
+                    "type": "Value",
+                    "id": "a132a3c5-8d62-487d-bb23-474f8644004d",
+                    "expectedControlType": "Axis",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": true
+                }
+            ],
+            "bindings": [
+                {
+                    "name": "",
+                    "id": "b12572e7-2bab-462d-af20-c5a0d0579d19",
+                    "path": "<Mouse>/position/x",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "MouseSwipe",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                }
+            ]
+        }
+    ],
+    "controlSchemes": []
+}
