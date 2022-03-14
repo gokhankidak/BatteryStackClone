@@ -15,8 +15,8 @@ public class TailFollow : MonoBehaviour
 
     void FollowNext()
     {
-        transform.position = Vector3.Lerp(transform.position, nextBattery.position, followingDistance);
-        transform.rotation = Quaternion.Lerp(transform.rotation,nextBattery.rotation,followingDistance);
+        transform.position = Vector3.Lerp(transform.position, nextBattery.position, followingDistance*Time.deltaTime);
+        transform.rotation = Quaternion.Lerp(transform.rotation,nextBattery.rotation,followingDistance*Time.deltaTime);
     }
     
 }

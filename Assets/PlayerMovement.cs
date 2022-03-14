@@ -4,12 +4,11 @@ using UnityEngine;
 public class PlayerMovement : MonoBehaviour
 {
     private float _inputPos;
-    private float _textureXOffset = 0;
     private GroundPositions _ground;
     private Rigidbody _rb;
     private float _inputValue,_velocity,_leftBorder,_rightBorder;
-    
-    [SerializeField] private float textureSpeed = .5f;
+
+    [SerializeField] private BatteryController batteryController;
     [SerializeField] private float speed = 5f;
     private PlayerInput _playerInput;
     
@@ -20,11 +19,25 @@ public class PlayerMovement : MonoBehaviour
         _rb = GetComponent<Rigidbody>();
     }
 
-    private void OnCollisionEnter(Collision collision)
+    private void OnCollisionEnter(Collision collision)//başka Scriptin içine al
     {
         if (collision.gameObject.layer == LayerMask.NameToLayer("Ground"))
         {
             SetNewBorders(collision.gameObject.GetComponent<GroundPositions>());
+        }
+
+        else if (collision.gameObject.layer == LayerMask.NameToLayer("Grinder"))
+        {
+            batteryController.DestroyBattery();
+        }
+    }
+
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.gameObject.layer == LayerMask.NameToLayer("Battery"))
+        {
+            batteryController.AddOneBat();
+            Destroy(other.gameObject);
         }
     }
 
@@ -37,19 +50,13 @@ public class PlayerMovement : MonoBehaviour
     void FixedUpdate()
     {
         MoveBattery();
-        RotateTexture();
     }
 
     private void LateUpdate()
     {
         KeepInBorders();
     }
-
-    void RotateTexture()
-    { 
-        _textureXOffset += speed * Time.deltaTime * textureSpeed;
-        transform.GetComponent<Renderer>().material.SetTextureOffset("_MainTex", new Vector2( _textureXOffset,0));
-    }
+    
     void MoveBattery()
     {
         _rb.velocity = Vector3.right * speed;

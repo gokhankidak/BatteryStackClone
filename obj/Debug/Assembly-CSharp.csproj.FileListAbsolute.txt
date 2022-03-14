@@ -1,0 +1,2 @@
+/Users/gokhankidak/UnityProjects/MainProjects/Battery Stack/obj/Debug/Assembly-CSharp.csproj.AssemblyReference.cache
+/Users/gokhankidak/UnityProjects/MainProjects/Battery Stack/obj/Debug/Assembly-CSharp.csproj.CoreCompileInputs.cache
