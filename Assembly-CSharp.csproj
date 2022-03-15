@@ -42,12 +42,13 @@
   </PropertyGroup>
   <ItemGroup>
      <Compile Include="Assets/Battery/TailFollow.cs" />
+     <Compile Include="Assets/RotationControl.cs" />
+     <Compile Include="Assets/Enviroment/BatteryBedController.cs" />
      <Compile Include="Assets/GroundPositions.cs" />
      <Compile Include="Assets/PlayerInput.cs" />
+     <Compile Include="Assets/Battery/BatteryPrefSO.cs" />
      <Compile Include="Assets/Battery/BatteryController.cs" />
      <Compile Include="Assets/PlayerMovement.cs" />
-     <Compile Include="Assets/RotationControl.cs" />
-     <Compile Include="Assets/Battery/BatteryPrefSO.cs" />
      <None Include="Assets/TextMesh Pro/Shaders/TMPro.cginc" />
      <None Include="Assets/TextMesh Pro/Shaders/TMP_SDF-Mobile Overlay.shader" />
      <None Include="Assets/TextMesh Pro/Shaders/TMP_Bitmap.shader" />

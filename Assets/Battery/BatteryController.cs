@@ -59,15 +59,22 @@ public class BatteryController : MonoBehaviour
     {
         GameObject tempObject;
         
-        if (_activeBatteriesPool.Count > 0)
+        if (_activeBatteriesPool.Count > 1)
         {
             //TODO play anim for situations
             tempObject = _activeBatteriesPool[0];
+            _activeBatteriesPool.RemoveAt(0);
             firstBattery.transform.position = tempObject.transform.position;
             _activeBatteriesPool[0].GetComponent<TailFollow>().nextBattery = firstBattery.transform;
-            _activeBatteriesPool.RemoveAt(0);
             tempObject.SetActive(false);
             _deactiveBatteriesPool.Push(tempObject);
+        }
+        else if (_activeBatteriesPool.Count == 1)
+        {
+            tempObject = _activeBatteriesPool[0];
+            _activeBatteriesPool.RemoveAt(0);
+            _deactiveBatteriesPool.Push(tempObject);
+            tempObject.SetActive(false);
         }
         else
         {
