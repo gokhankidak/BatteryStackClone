@@ -14,6 +14,11 @@ public class GroundPositions : MonoBehaviour
     {
         leftBorder = gameObject.GetComponent<Collider>().bounds.min.z;
         rightBorder = gameObject.GetComponent<Collider>().bounds.max.z;
+        
+        //TEST PURPOSE ONLY
+        leftBorder = -5;
+        rightBorder = 5; 
+        //
     }
 
     // Update is called once per frame

@@ -1,23 +1,24 @@
 using System;
+using System.Collections;
 using UnityEngine;
 
 public class PlayerMovement : MonoBehaviour
 {
     private float _inputPos;
-    private GroundPositions _ground;
     private Rigidbody _rb;
     private float _inputValue,_velocity,_leftBorder,_rightBorder;
-
+    private Transform _ground;
+    [SerializeField] private float _smooth = .5f;
     [SerializeField] private BatteryController batteryController;
     [SerializeField] private float speed = 5f;
-    private float currentSpeed,slowSpeed;
+    private float _currentSpeed,_slowSpeed;
     private PlayerInput _playerInput;
     
     // Start is called before the first frame update
     void Awake()
     {
-        currentSpeed = speed;
-        slowSpeed = speed / 2;
+        _currentSpeed = speed;
+        _slowSpeed = speed / 3;
         _playerInput = GetComponent<PlayerInput>();
         _rb = GetComponent<Rigidbody>();
     }
@@ -26,8 +27,10 @@ public class PlayerMovement : MonoBehaviour
     
     private void OnCollisionEnter(Collision collision)//başka Scriptin içine al
     {
-        if (collision.gameObject.layer == LayerMask.NameToLayer("Ground"))
+        if (collision.gameObject.layer == LayerMask.NameToLayer("Ground") && _ground != collision.transform)
         {
+            StartCoroutine(RotateBattery());
+            _ground = collision.transform;
             SetNewBorders(collision.gameObject.GetComponent<GroundPositions>());
         }
 
@@ -36,6 +39,7 @@ public class PlayerMovement : MonoBehaviour
             batteryController.DestroyBattery();
             SetSlowSpeed();
         }
+        
         else if(collision.gameObject.layer == LayerMask.NameToLayer("BatteryBed"))
         {
             if (collision.gameObject.GetComponent<BatteryBedController>().capacity > 0)
@@ -50,7 +54,7 @@ public class PlayerMovement : MonoBehaviour
             }
         }
     }
-    
+
     private void OnTriggerEnter(Collider other)
     {
         if (other.gameObject.layer == LayerMask.NameToLayer("Battery"))
@@ -58,14 +62,41 @@ public class PlayerMovement : MonoBehaviour
             batteryController.AddOneBat();
             Destroy(other.gameObject);
         }
+        else if (other.gameObject.layer == LayerMask.NameToLayer("RotationTrigger"))
+        {
+            StartCoroutine(RotateBattery(other.gameObject));
+        }
     }
 
     private void OnCollisionExit(Collision other)
     {
         SetNormalSpeed();
     }
-    
     #endregion
+    
+    private IEnumerator RotateBattery(GameObject pivotObject)
+    {
+        float firstAngle = transform.rotation.eulerAngles.y;
+        if (gameObject.transform.position.z < transform.position.z) //Left turn
+        {
+            while (Mathf.Abs(firstAngle - transform.rotation.eulerAngles.y) < 90)
+            {
+                transform.RotateAround(transform.position, Vector3.down, 50 * Time.deltaTime);
+                yield return new WaitForSeconds(0.01f);
+            }
+            
+            yield break;
+        }
+        else //Right turn
+        {
+            while (Mathf.Abs(firstAngle - transform.rotation.eulerAngles.y) < 90)
+            {
+                transform.RotateAround(transform.position, Vector3.up, 50 * Time.deltaTime);
+                yield return new WaitForSeconds(0.01f);
+            }
+            yield break;
+        }
+    }
     
     private void Update()
     {
@@ -85,8 +116,9 @@ public class PlayerMovement : MonoBehaviour
 
     void MoveBattery()
     {
-        _rb.velocity =new Vector3(currentSpeed * Time.deltaTime,_rb.velocity.y,_rb.velocity.z);
-        transform.position += new Vector3(0, 0, -_inputValue) * Time.deltaTime;
+        transform.Translate(new Vector3(0,0,-_inputValue*Time.deltaTime),Space.Self);
+        _rb.velocity =transform.TransformDirection(new Vector3(_currentSpeed * Time.deltaTime,_rb.velocity.y,0));
+
     }
 
     void SetNewBorders(GroundPositions positions)
@@ -95,21 +127,38 @@ public class PlayerMovement : MonoBehaviour
         _rightBorder = positions.RigtBorder;
     }
 
+    IEnumerator RotateBattery()
+    {
+        float startTime = Time.time;
+        while (Time.time < startTime + _smooth )
+        {
+            transform.rotation = Quaternion.Slerp(transform.rotation, _ground.transform.rotation, (Time.time - startTime) / _smooth);
+            yield return new WaitForSeconds(0.01f);
+        }
+        yield break;
+    }
+    
     private void KeepInBorders()
     {
         float _batteryScale = gameObject.GetComponent<Renderer>().bounds.size.z;
-        transform.position = new Vector3(transform.position.x,transform.position.y,Mathf.Clamp(transform.position.z, _leftBorder + _batteryScale / 2,
-            _rightBorder - _batteryScale / 2));
+        
+        var localPos = gameObject.transform.InverseTransformPoint(_ground.position);
+        Debug.Log("localPos : "+localPos.z);
+         if (Math.Abs(localPos.z) > Mathf.Abs(_leftBorder + _batteryScale / 2))
+         {
+             transform.position = transform.TransformPoint(new Vector3(0,0,
+             Mathf.Clamp(localPos.z, _leftBorder + _batteryScale / 2, _rightBorder - _batteryScale / 2)));
+         }
+
     }
     
     private void SetSlowSpeed()
     {
-        currentSpeed = slowSpeed;
+        _currentSpeed = _slowSpeed;
     }
 
     private void SetNormalSpeed()
     {
-        currentSpeed = speed;
+        _currentSpeed = speed;
     }
-
 }

@@ -7,7 +7,9 @@ public class TailFollow : MonoBehaviour
 {
     [SerializeField] private float followingDistance = .5f;
     public Transform nextBattery;
+    [HideInInspector]
     public Vector3 markedPosition;
+    [HideInInspector]
     public Quaternion markedRotation;
     private float batteryWidth;
     

@@ -51,14 +51,12 @@ public class BatteryController : MonoBehaviour
             tempObject.transform.position = firstBattery.transform.position;
             _activeBatteriesPool.Add(tempObject);
         }
-
-        //totalBatteriesCount += batteryCountToAdd;
     }
 
     public void DestroyBattery()
     {
         GameObject tempObject;
-        
+        Debug.Log("batterycount : "+_activeBatteriesPool.Count);
         if (_activeBatteriesPool.Count > 1)
         {
             //TODO play anim for situations
@@ -78,7 +76,8 @@ public class BatteryController : MonoBehaviour
         }
         else
         {
-            //Destroy(firstBattery);
+            Destroy(firstBattery);
+            Time.timeScale = 0;
             Debug.Log("Game Over");
         }
     }

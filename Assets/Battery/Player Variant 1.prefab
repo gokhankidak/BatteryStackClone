@@ -13,15 +13,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5057345127293670445, guid: 18a9a3ff608cd4ed6822ea041d51efea, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -45.91
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5057345127293670445, guid: 18a9a3ff608cd4ed6822ea041d51efea, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0.50000095
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5057345127293670445, guid: 18a9a3ff608cd4ed6822ea041d51efea, type: 3}
       propertyPath: m_LocalPosition.z
-      value: -0.29
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5057345127293670445, guid: 18a9a3ff608cd4ed6822ea041d51efea, type: 3}
       propertyPath: m_LocalRotation.w
@@ -53,7 +53,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5576753992997015191, guid: 18a9a3ff608cd4ed6822ea041d51efea, type: 3}
       propertyPath: m_Name
-      value: Player
+      value: Player Variant 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 18a9a3ff608cd4ed6822ea041d51efea, type: 3}
@@ -92,19 +92,6 @@ CapsuleCollider:
   m_Height: 2
   m_Direction: 2
   m_Center: {x: 0, y: 0, z: -0.02051258}
---- !u!114 &8090850950234691740
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3762088512722401175}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6c236ddd91d86413890efe355466487f, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  sideSpeed: 0.015
 --- !u!114 &7670274271097144950
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -118,4 +105,17 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   batteryController: {fileID: 0}
-  speed: 300
+  speed: 500
+--- !u!114 &8090850950234691740
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3762088512722401175}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6c236ddd91d86413890efe355466487f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  sideSpeed: 0.015
