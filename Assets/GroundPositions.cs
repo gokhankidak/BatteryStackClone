@@ -16,7 +16,5 @@ public class GroundPositions : MonoBehaviour
         rightBorder = gameObject.GetComponent<Collider>().bounds.max.z - 2*transform.position.z;
         leftBorder = -5;
         rightBorder = -5;
-        Debug.Log("leftBorder" +leftBorder);
-        Debug.Log("right border"+rightBorder);
     }
 }

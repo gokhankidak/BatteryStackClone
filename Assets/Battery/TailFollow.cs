@@ -11,12 +11,10 @@ public class TailFollow : MonoBehaviour
     public Vector3 markedPosition;
     [HideInInspector]
     public Quaternion markedRotation;
-    private float batteryWidth;
-    
-    
+
+
     private void OnEnable()
     {
-        batteryWidth = gameObject.GetComponent<MeshFilter>().mesh.bounds.size.z;
         StartCoroutine(FollowDelay(.1f));
     }
 
