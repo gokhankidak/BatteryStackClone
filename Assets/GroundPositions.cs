@@ -12,18 +12,11 @@ public class GroundPositions : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        leftBorder = gameObject.GetComponent<Collider>().bounds.min.z;
-        rightBorder = gameObject.GetComponent<Collider>().bounds.max.z;
-        
-        //TEST PURPOSE ONLY
+        leftBorder = gameObject.GetComponent<Collider>().bounds.min.z - 2*transform.position.z;
+        rightBorder = gameObject.GetComponent<Collider>().bounds.max.z - 2*transform.position.z;
         leftBorder = -5;
-        rightBorder = 5; 
-        //
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
+        rightBorder = -5;
+        Debug.Log("leftBorder" +leftBorder);
+        Debug.Log("right border"+rightBorder);
     }
 }

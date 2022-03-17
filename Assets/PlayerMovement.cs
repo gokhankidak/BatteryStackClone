@@ -77,25 +77,15 @@ public class PlayerMovement : MonoBehaviour
     private IEnumerator RotateBattery(GameObject pivotObject)
     {
         float firstAngle = transform.rotation.eulerAngles.y;
-        if (gameObject.transform.position.z < transform.position.z) //Left turn
+        Vector3 rotationAxis = Vector3.up;
+        if (gameObject.transform.position.z < transform.position.z) rotationAxis = Vector3.down;
+        
+        while (Mathf.Abs(firstAngle - transform.rotation.eulerAngles.y) < 90)
         {
-            while (Mathf.Abs(firstAngle - transform.rotation.eulerAngles.y) < 90)
-            {
-                transform.RotateAround(transform.position, Vector3.down, 50 * Time.deltaTime);
-                yield return new WaitForSeconds(0.01f);
-            }
-            
-            yield break;
+            transform.RotateAround(transform.position, rotationAxis, 50 * Time.deltaTime);
+            yield return new WaitForSeconds(0.01f);
         }
-        else //Right turn
-        {
-            while (Mathf.Abs(firstAngle - transform.rotation.eulerAngles.y) < 90)
-            {
-                transform.RotateAround(transform.position, Vector3.up, 50 * Time.deltaTime);
-                yield return new WaitForSeconds(0.01f);
-            }
-            yield break;
-        }
+        yield break;
     }
     
     private void Update()
@@ -133,23 +123,22 @@ public class PlayerMovement : MonoBehaviour
         while (Time.time < startTime + _smooth )
         {
             transform.rotation = Quaternion.Slerp(transform.rotation, _ground.transform.rotation, (Time.time - startTime) / _smooth);
-            yield return new WaitForSeconds(0.01f);
+            yield return new WaitForSeconds(0.03f);
         }
         yield break;
     }
     
     private void KeepInBorders()
     {
-        float _batteryScale = gameObject.GetComponent<Renderer>().bounds.size.z;
+        float batteryWidth = gameObject.GetComponent<Renderer>().localBounds.size.z*transform.localScale.z;
+        var localPos = gameObject.transform.InverseTransformPoint(_ground.position)*transform.localScale.z;
         
-        var localPos = gameObject.transform.InverseTransformPoint(_ground.position);
-        Debug.Log("localPos : "+localPos.z);
-         if (Math.Abs(localPos.z) > Mathf.Abs(_leftBorder + _batteryScale / 2))
+        Debug.Log("abs : "+Mathf.Abs(_leftBorder + batteryWidth/2));
+        
+        if (Math.Abs(localPos.z) > Mathf.Abs(_leftBorder + batteryWidth/2))
          {
-             transform.position = transform.TransformPoint(new Vector3(0,0,
-             Mathf.Clamp(localPos.z, _leftBorder + _batteryScale / 2, _rightBorder - _batteryScale / 2)));
+             transform.Translate(new Vector3(0,0,.1f*Mathf.Sign(localPos.z)),_ground); 
          }
-
     }
     
     private void SetSlowSpeed()
