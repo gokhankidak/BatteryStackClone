@@ -1,20 +1,20 @@
 using System;
 using System.Collections;
-using UnityEditor.Experimental.GraphView;
 using UnityEngine;
 
 public class PlayerMovement : MonoBehaviour
 {
-    [SerializeField] private float _smooth = .5f;
+    [SerializeField] private float _smooth = 1f;
     [SerializeField] private BatteryController batteryController;
     [SerializeField] private float speed = 5f;
     [SerializeField] private GameObject electricDestroyParticle;
+    [SerializeField] private Transform pivotPosition;
     
     private float _inputPos;
     private float _inputValue,_velocity,_leftBorder,_rightBorder;
     private float _currentSpeed,_slowSpeed;
-
     private float _batteryWidth;
+    
     private Rigidbody _rb;
     private Transform _ground;
     private PlayerInput _playerInput;
@@ -42,6 +42,7 @@ public class PlayerMovement : MonoBehaviour
         else if(collision.gameObject.layer == LayerMask.NameToLayer("GroundRotation") && collision.transform != _ground)
         {
             _ground = collision.transform;
+            _currentSpeed = 0;
             SetNewBorders(collision.gameObject.GetComponent<GroundPositions>());
             StartCoroutine(RotateBattery(_ground));
         }
@@ -78,7 +79,8 @@ public class PlayerMovement : MonoBehaviour
 
     private void OnCollisionExit(Collision other)
     {
-        SetNormalSpeed();
+        if(other.gameObject.layer != LayerMask.NameToLayer("Ground"))
+            SetNormalSpeed();
     }
     #endregion
     
@@ -105,18 +107,6 @@ public class PlayerMovement : MonoBehaviour
         _rightBorder = positions.RigtBorder;
     }
 
-    IEnumerator RotateBattery(Transform ground)
-    {
-        float startTime = Time.time;
-
-        while (Time.time < startTime + _smooth )
-        {
-            transform.rotation = Quaternion.Lerp(transform.rotation, ground.rotation, (Time.time - startTime)*1000*Time.deltaTime / _smooth);
-            if(transform.rotation.y == ground.rotation.y) break;
-            yield return new WaitForSeconds(0.01f);
-        }
-    }
-    
     private void KeepInBorders()
     {
         if(_ground == null) return;
@@ -128,6 +118,19 @@ public class PlayerMovement : MonoBehaviour
             float distance = Math.Abs(localPos.z) - Mathf.Abs(_leftBorder + _batteryWidth / 2);
             transform.Translate(new Vector3(0,0,distance*Mathf.Sign(localPos.z)),_ground); 
         }
+    }
+    IEnumerator RotateBattery(Transform ground)
+    {
+        float startTime = Time.time;
+        
+        while (transform.rotation.y < _ground.rotation.y)
+        {
+            transform.RotateAround(pivotPosition.position,Vector3.up, _smooth);
+                //transform.rotation = Quaternion.Lerp(transform.rotation, ground.rotation, (Time.time - startTime)*1000*Time.deltaTime / _smooth);
+            yield return new WaitForSeconds(0.01f);
+        }
+        transform.rotation = _ground.rotation;
+        SetNormalSpeed();
     }
     
     private void SetSlowSpeed()

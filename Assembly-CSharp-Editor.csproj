@@ -309,23 +309,20 @@
      <Reference Include="unityplastic">
      <HintPath>/Users/gokhankidak/UnityProjects/MainProjects/Battery Stack/Library/PackageCache/com.unity.collab-proxy@1.15.12/Lib/Editor/PlasticSCM/unityplastic.dll</HintPath>
      </Reference>
-     <Reference Include="log4netPlastic">
-     <HintPath>/Users/gokhankidak/UnityProjects/MainProjects/Battery Stack/Library/PackageCache/com.unity.collab-proxy@1.15.12/Lib/Editor/PlasticSCM/log4netPlastic.dll</HintPath>
-     </Reference>
-     <Reference Include="JMOAssets_CartoonFXFreeWelcome">
-     <HintPath>/Users/gokhankidak/UnityProjects/MainProjects/Battery Stack/Assets/JMO Assets/Editor/JMOAssets_CartoonFXFreeWelcome.dll</HintPath>
-     </Reference>
-     <Reference Include="clipper_library">
-     <HintPath>/Users/gokhankidak/UnityProjects/MainProjects/Battery Stack/Library/PackageCache/com.unity.cinemachine@2.8.4/Runtime/ThirdParty/clipper_library.dll</HintPath>
-     </Reference>
      <Reference Include="DOTweenEditor">
      <HintPath>/Users/gokhankidak/UnityProjects/MainProjects/Battery Stack/Assets/Plugins/Demigiant/DOTween/Editor/DOTweenEditor.dll</HintPath>
+     </Reference>
+     <Reference Include="log4netPlastic">
+     <HintPath>/Users/gokhankidak/UnityProjects/MainProjects/Battery Stack/Library/PackageCache/com.unity.collab-proxy@1.15.12/Lib/Editor/PlasticSCM/log4netPlastic.dll</HintPath>
      </Reference>
      <Reference Include="DOTween">
      <HintPath>/Users/gokhankidak/UnityProjects/MainProjects/Battery Stack/Assets/Plugins/Demigiant/DOTween/DOTween.dll</HintPath>
      </Reference>
-     <Reference Include="DOTweenUpgradeManager">
-     <HintPath>/Users/gokhankidak/UnityProjects/MainProjects/Battery Stack/Assets/Plugins/Demigiant/DOTween/Editor/DOTweenUpgradeManager.dll</HintPath>
+     <Reference Include="clipper_library">
+     <HintPath>/Users/gokhankidak/UnityProjects/MainProjects/Battery Stack/Library/PackageCache/com.unity.cinemachine@2.8.4/Runtime/ThirdParty/clipper_library.dll</HintPath>
+     </Reference>
+     <Reference Include="JMOAssets_CartoonFXFreeWelcome">
+     <HintPath>/Users/gokhankidak/UnityProjects/MainProjects/Battery Stack/Assets/JMO Assets/Editor/JMOAssets_CartoonFXFreeWelcome.dll</HintPath>
      </Reference>
      <Reference Include="nunit.framework">
      <HintPath>/Users/gokhankidak/UnityProjects/MainProjects/Battery Stack/Library/PackageCache/com.unity.ext.nunit@1.0.6/net35/unity-custom/nunit.framework.dll</HintPath>
@@ -948,8 +945,14 @@
      <Reference Include="UnityEditor.TestRunner">
      <HintPath>/Users/gokhankidak/UnityProjects/MainProjects/Battery Stack/Library/ScriptAssemblies/UnityEditor.TestRunner.dll</HintPath>
      </Reference>
+     <Reference Include="Cinemachine">
+     <HintPath>/Users/gokhankidak/UnityProjects/MainProjects/Battery Stack/Library/ScriptAssemblies/Cinemachine.dll</HintPath>
+     </Reference>
      <Reference Include="Unity.VSCode.Editor">
      <HintPath>/Users/gokhankidak/UnityProjects/MainProjects/Battery Stack/Library/ScriptAssemblies/Unity.VSCode.Editor.dll</HintPath>
+     </Reference>
+     <Reference Include="com.unity.cinemachine.editor">
+     <HintPath>/Users/gokhankidak/UnityProjects/MainProjects/Battery Stack/Library/ScriptAssemblies/com.unity.cinemachine.editor.dll</HintPath>
      </Reference>
      <Reference Include="Unity.TextMeshPro.Editor">
      <HintPath>/Users/gokhankidak/UnityProjects/MainProjects/Battery Stack/Library/ScriptAssemblies/Unity.TextMeshPro.Editor.dll</HintPath>
@@ -977,12 +980,6 @@
      </Reference>
      <Reference Include="UnityEngine.UI">
      <HintPath>/Users/gokhankidak/UnityProjects/MainProjects/Battery Stack/Library/ScriptAssemblies/UnityEngine.UI.dll</HintPath>
-     </Reference>
-     <Reference Include="com.unity.cinemachine.editor">
-     <HintPath>/Users/gokhankidak/UnityProjects/MainProjects/Battery Stack/Library/ScriptAssemblies/com.unity.cinemachine.editor.dll</HintPath>
-     </Reference>
-     <Reference Include="Cinemachine">
-     <HintPath>/Users/gokhankidak/UnityProjects/MainProjects/Battery Stack/Library/ScriptAssemblies/Cinemachine.dll</HintPath>
      </Reference>
   </ItemGroup>
   <ItemGroup>
