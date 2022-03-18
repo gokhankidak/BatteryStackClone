@@ -41,7 +41,7 @@
     <ImplicitlyExpandDesignTimeFacades>false</ImplicitlyExpandDesignTimeFacades>
   </PropertyGroup>
   <ItemGroup>
-     <Compile Include="Assets/Battery/TailFollow.cs" />
+     <Compile Include="Assets/Battery/TailMarker.cs" />
      <Compile Include="Assets/RotationControl.cs" />
      <Compile Include="Assets/Enviroment/BatteryBedController.cs" />
      <Compile Include="Assets/GroundPositions.cs" />

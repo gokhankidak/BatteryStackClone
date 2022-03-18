@@ -132,10 +132,12 @@ public class PlayerMovement : MonoBehaviour
     private void SetSlowSpeed()
     {
         _currentSpeed = _slowSpeed;
+        batteryController.isFollowing = false;
     }
 
     private void SetNormalSpeed()
     {
         _currentSpeed = speed;
+        batteryController.isFollowing = true;
     }
 }

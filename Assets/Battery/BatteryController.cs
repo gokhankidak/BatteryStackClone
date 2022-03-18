@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.PlayerLoop;
 using UnityEngine.Serialization;
 
 public class BatteryController : MonoBehaviour
@@ -11,6 +12,7 @@ public class BatteryController : MonoBehaviour
     [SerializeField] private int totalBatteriesCount = 4;
     private List<GameObject> _activeBatteriesPool = new List<GameObject>();
     private Stack<GameObject> _deactiveBatteriesPool = new Stack<GameObject>();
+    public bool isFollowing = true;
 
     private void Start()
     {
@@ -23,6 +25,7 @@ public class BatteryController : MonoBehaviour
         AddBatteries(1);
     }
     
+    
     public void AddBatteries(int batteryCountToAdd)
     {
         GameObject tempObject;
@@ -30,7 +33,7 @@ public class BatteryController : MonoBehaviour
         if (_activeBatteriesPool.Count == 0)
         {
             tempObject = Instantiate(batteryPrefab);
-            tempObject.GetComponent<TailFollow>().nextBattery = firstBattery.transform;
+            tempObject.GetComponent<TailMarker>().nextBattery = firstBattery.transform;
             _activeBatteriesPool.Add(tempObject);
             batteryCountToAdd--;
         }
@@ -47,9 +50,22 @@ public class BatteryController : MonoBehaviour
                 tempObject = Instantiate(batteryPrefab);
             }
             
-            tempObject.GetComponent<TailFollow>().nextBattery = _activeBatteriesPool[_activeBatteriesPool.Count-1].transform;//to follow next battery
+            tempObject.GetComponent<TailMarker>().nextBattery = _activeBatteriesPool[_activeBatteriesPool.Count-1].transform;//to follow next battery
             tempObject.transform.position = firstBattery.transform.position;
             _activeBatteriesPool.Add(tempObject);
+        }
+    }
+    void FixedUpdate()
+    {
+        if(isFollowing)
+            FollowBatteries();
+    }
+
+    public void FollowBatteries()
+    {
+        for (int i = 0; i < _activeBatteriesPool.Count; i++)
+        {
+            _activeBatteriesPool[i].GetComponent<TailMarker>().FollowNext();
         }
     }
 
@@ -63,7 +79,7 @@ public class BatteryController : MonoBehaviour
             tempObject = _activeBatteriesPool[0];
             _activeBatteriesPool.RemoveAt(0);
             firstBattery.transform.position = tempObject.transform.position;
-            _activeBatteriesPool[0].GetComponent<TailFollow>().nextBattery = firstBattery.transform;
+            _activeBatteriesPool[0].GetComponent<TailMarker>().nextBattery = firstBattery.transform;
             tempObject.SetActive(false);
             _deactiveBatteriesPool.Push(tempObject);
         }

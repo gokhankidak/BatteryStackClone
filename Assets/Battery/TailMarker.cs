@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class TailFollow : MonoBehaviour
+public class TailMarker : MonoBehaviour
 {
     [SerializeField] private float followingDistance = .5f;
     public Transform nextBattery;
@@ -12,25 +12,18 @@ public class TailFollow : MonoBehaviour
     [HideInInspector]
     public Quaternion markedRotation;
 
-
     private void OnEnable()
     {
-        StartCoroutine(FollowDelay(.1f));
+        StartCoroutine(StartingFollowDelay(.1f));
     }
 
-    IEnumerator FollowDelay(float _time)
+    IEnumerator StartingFollowDelay(float _time)
     {
         yield return new WaitForSeconds(_time);
     }
-    private void Update()
+    private void FixedUpdate()
     {
         MarkPosition();
-    }
-
-    void FixedUpdate()
-    {
-        if(nextBattery != null)
-            FollowNext();
     }
 
     void MarkPosition()
@@ -38,14 +31,13 @@ public class TailFollow : MonoBehaviour
         markedPosition = transform.position;
         markedRotation = transform.rotation;
     }
-    void FollowNext()
+    public void FollowNext()
     {
-        if (nextBattery.GetComponent<TailFollow>() == null) return;
-        Vector3 targetPos = nextBattery.GetComponent<TailFollow>().markedPosition;
-        Quaternion targetRot = nextBattery.GetComponent<TailFollow>().markedRotation;
+        if (nextBattery.GetComponent<TailMarker>() == null) return;
+        Vector3 targetPos = nextBattery.GetComponent<TailMarker>().markedPosition;
+        Quaternion targetRot = nextBattery.GetComponent<TailMarker>().markedRotation;
 
         transform.position = Vector3.Lerp(transform.position, targetPos, followingDistance*Time.deltaTime);
         transform.rotation = Quaternion.Lerp(transform.rotation,targetRot,followingDistance*Time.deltaTime);
     }
-    
 }
