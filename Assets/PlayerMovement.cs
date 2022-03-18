@@ -8,6 +8,7 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] private float _smooth = .5f;
     [SerializeField] private BatteryController batteryController;
     [SerializeField] private float speed = 5f;
+    [SerializeField] private GameObject electricDestroyParticle;
     
     private float _inputPos;
     private float _inputValue,_velocity,_leftBorder,_rightBorder;
@@ -55,7 +56,7 @@ public class PlayerMovement : MonoBehaviour
         {
             if (collision.gameObject.GetComponent<BatteryBedController>().capacity > 0)
             {
-                collision.gameObject.GetComponent<BatteryBedController>().capacity--;
+                collision.gameObject.GetComponent<BatteryBedController>().PlaceBattery();
                 batteryController.DestroyBattery();
                 SetSlowSpeed();
             }
@@ -112,7 +113,7 @@ public class PlayerMovement : MonoBehaviour
         {
             transform.rotation = Quaternion.Lerp(transform.rotation, ground.rotation, (Time.time - startTime)*1000*Time.deltaTime / _smooth);
             if(transform.rotation.y == ground.rotation.y) break;
-            yield return new WaitForSeconds(0.02f);
+            yield return new WaitForSeconds(0.01f);
         }
     }
     
@@ -132,6 +133,7 @@ public class PlayerMovement : MonoBehaviour
     private void SetSlowSpeed()
     {
         _currentSpeed = _slowSpeed;
+        Instantiate(electricDestroyParticle, transform.position, Quaternion.identity);
         batteryController.isFollowing = false;
     }
 

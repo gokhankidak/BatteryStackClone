@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -5,8 +6,20 @@ using UnityEngine;
 public class BatteryBedController : MonoBehaviour
 {
     public int capacity = 3;
+    [SerializeField]private List<Transform> batteryBedPositions;
+    [SerializeField] private GameObject batteryPrefab,player;
     Vector3 velocity = Vector3.zero;
     float smoothTime = .1f;
+
+    private void Start()
+    {
+        for (int i = 0; i < capacity; ++i)
+        {
+            batteryBedPositions.Add(gameObject.transform.GetChild(capacity-i-1));
+        }
+        Debug.Log("capacity : "+batteryBedPositions.Count);
+    }
+
     public void OnComplete()
     {
         StartCoroutine(MoveObject(transform.position + new Vector3(0, 5, 0)));
@@ -21,6 +34,13 @@ public class BatteryBedController : MonoBehaviour
             yield return new WaitForSeconds(0.01f);
         }
         yield break;
-        
     }
+
+    public void PlaceBattery()
+    {
+        var battery = Instantiate(batteryPrefab, batteryBedPositions[capacity-1].transform.position,Quaternion.identity);
+        battery.transform.parent = transform;
+        capacity--;
+    }
+
 }

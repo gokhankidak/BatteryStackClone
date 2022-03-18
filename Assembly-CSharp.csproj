@@ -42,24 +42,24 @@
   </PropertyGroup>
   <ItemGroup>
      <Compile Include="Assets/Battery/TailMarker.cs" />
+     <Compile Include="Assets/JMO Assets/Cartoon FX/Demo/Assets/CFX_Demo_RotateCamera.cs" />
+     <Compile Include="Assets/JMO Assets/Cartoon FX/Scripts/CFX_LightIntensityFade.cs" />
      <Compile Include="Assets/RotationControl.cs" />
      <Compile Include="Assets/Enviroment/BatteryBedController.cs" />
      <Compile Include="Assets/GroundPositions.cs" />
-     <Compile Include="Assets/PlayerInput.cs" />
-     <Compile Include="Assets/Battery/BatteryPrefSO.cs" />
-     <Compile Include="Assets/Battery/BatteryController.cs" />
-     <Compile Include="Assets/PlayerMovement.cs" />
-     <Compile Include="Assets/TransformExtensions.cs" />
-     <Compile Include="Assets/JMO Assets/Cartoon FX/Demo/Assets/CFX_Demo_Translate.cs" />
      <Compile Include="Assets/JMO Assets/Cartoon FX/Scripts/CFX_AutoRotate.cs" />
-     <Compile Include="Assets/JMO Assets/Cartoon FX/Demo/Assets/CFX_Demo_New.cs" />
-     <Compile Include="Assets/JMO Assets/Cartoon FX/Demo/Assets/CFX_Demo_RandomDirectionTranslate.cs" />
      <Compile Include="Assets/JMO Assets/Cartoon FX/Demo/Assets/CFX_AutoStopLoopedEffect.cs" />
-     <Compile Include="Assets/JMO Assets/Cartoon FX/Demo/Assets/CFX_Demo_RotateCamera.cs" />
+     <Compile Include="Assets/PlayerInput.cs" />
+     <Compile Include="Assets/JMO Assets/Cartoon FX/Demo/Assets/CFX_Demo_RandomDirectionTranslate.cs" />
+     <Compile Include="Assets/Battery/BatteryPrefSO.cs" />
      <Compile Include="Assets/JMO Assets/Cartoon FX/Demo/Assets/CFX_Demo_RandomDir.cs" />
+     <Compile Include="Assets/Battery/BatteryController.cs" />
+     <Compile Include="Assets/JMO Assets/Cartoon FX/Demo/Assets/CFX_Demo_Translate.cs" />
+     <Compile Include="Assets/PlayerMovement.cs" />
+     <Compile Include="Assets/JMO Assets/Cartoon FX/Demo/Assets/CFX_Demo_New.cs" />
      <Compile Include="Assets/JMO Assets/Cartoon FX/Scripts/CFX_LightFlicker.cs" />
      <Compile Include="Assets/JMO Assets/Cartoon FX/Scripts/CFX_AutoDestructShuriken.cs" />
-     <Compile Include="Assets/JMO Assets/Cartoon FX/Scripts/CFX_LightIntensityFade.cs" />
+     <Compile Include="Assets/TransformExtensions.cs" />
      <None Include="Assets/TextMesh Pro/Shaders/TMPro.cginc" />
      <None Include="Assets/TextMesh Pro/Shaders/TMP_SDF-Mobile Overlay.shader" />
      <None Include="Assets/JMO Assets/Cartoon FX/Shaders/CFX3 Multiply Color.shader" />
@@ -328,6 +328,12 @@
      </Reference>
      <Reference Include="UnityEditor.UnityConnectModule">
      <HintPath>/Applications/Unity/Hub/Editor/2021.2.12f1/Unity.app/Contents/Managed/UnityEngine/UnityEditor.UnityConnectModule.dll</HintPath>
+     </Reference>
+     <Reference Include="clipper_library">
+     <HintPath>/Users/gokhankidak/UnityProjects/MainProjects/Battery Stack/Library/PackageCache/com.unity.cinemachine@2.8.4/Runtime/ThirdParty/clipper_library.dll</HintPath>
+     </Reference>
+     <Reference Include="DOTween">
+     <HintPath>/Users/gokhankidak/UnityProjects/MainProjects/Battery Stack/Assets/Plugins/Demigiant/DOTween/DOTween.dll</HintPath>
      </Reference>
      <Reference Include="UnityEditor.iOS.Extensions.Xcode">
      <HintPath>/Applications/Unity/Hub/Editor/2021.2.12f1/PlaybackEngines/iOSSupport/UnityEditor.iOS.Extensions.Xcode.dll</HintPath>
@@ -737,8 +743,18 @@
      <Reference Include="UnityEngine.UI">
      <HintPath>/Users/gokhankidak/UnityProjects/MainProjects/Battery Stack/Library/ScriptAssemblies/UnityEngine.UI.dll</HintPath>
      </Reference>
+     <Reference Include="com.unity.cinemachine.editor">
+     <HintPath>/Users/gokhankidak/UnityProjects/MainProjects/Battery Stack/Library/ScriptAssemblies/com.unity.cinemachine.editor.dll</HintPath>
+     </Reference>
+     <Reference Include="Cinemachine">
+     <HintPath>/Users/gokhankidak/UnityProjects/MainProjects/Battery Stack/Library/ScriptAssemblies/Cinemachine.dll</HintPath>
+     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="Assembly-CSharp-firstpass.csproj">
+      <Project>{ca9568bb-ec5e-31ac-4870-7713848af2df}</Project>
+      <Name>Assembly-CSharp-firstpass</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it.

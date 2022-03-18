@@ -585,6 +585,7 @@ MonoBehaviour:
   firstBattery: {fileID: 1482992371}
   batteryPrefab: {fileID: 5576753992997015191, guid: 18a9a3ff608cd4ed6822ea041d51efea, type: 3}
   totalBatteriesCount: 10
+  isFollowing: 1
 --- !u!4 &1041741169
 Transform:
   m_ObjectHideFlags: 0
@@ -987,7 +988,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7379694717656264899, guid: 7c8be117e97074ef5b36ec61fb5690d9, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 6.14
+      value: 2.8
       objectReference: {fileID: 0}
     - target: {fileID: 7379694717656264899, guid: 7c8be117e97074ef5b36ec61fb5690d9, type: 3}
       propertyPath: m_LocalRotation.w
@@ -1533,6 +1534,10 @@ PrefabInstance:
     - target: {fileID: 593929504960470159, guid: d9ccbda56fa76488b8642c39e253aad7, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 593929504960470386, guid: d9ccbda56fa76488b8642c39e253aad7, type: 3}
+      propertyPath: followingDistance
+      value: 50
       objectReference: {fileID: 0}
     - target: {fileID: 593929504960470387, guid: d9ccbda56fa76488b8642c39e253aad7, type: 3}
       propertyPath: m_CollisionDetection

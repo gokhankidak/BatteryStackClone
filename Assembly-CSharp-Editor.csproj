@@ -315,6 +315,18 @@
      <Reference Include="JMOAssets_CartoonFXFreeWelcome">
      <HintPath>/Users/gokhankidak/UnityProjects/MainProjects/Battery Stack/Assets/JMO Assets/Editor/JMOAssets_CartoonFXFreeWelcome.dll</HintPath>
      </Reference>
+     <Reference Include="clipper_library">
+     <HintPath>/Users/gokhankidak/UnityProjects/MainProjects/Battery Stack/Library/PackageCache/com.unity.cinemachine@2.8.4/Runtime/ThirdParty/clipper_library.dll</HintPath>
+     </Reference>
+     <Reference Include="DOTweenEditor">
+     <HintPath>/Users/gokhankidak/UnityProjects/MainProjects/Battery Stack/Assets/Plugins/Demigiant/DOTween/Editor/DOTweenEditor.dll</HintPath>
+     </Reference>
+     <Reference Include="DOTween">
+     <HintPath>/Users/gokhankidak/UnityProjects/MainProjects/Battery Stack/Assets/Plugins/Demigiant/DOTween/DOTween.dll</HintPath>
+     </Reference>
+     <Reference Include="DOTweenUpgradeManager">
+     <HintPath>/Users/gokhankidak/UnityProjects/MainProjects/Battery Stack/Assets/Plugins/Demigiant/DOTween/Editor/DOTweenUpgradeManager.dll</HintPath>
+     </Reference>
      <Reference Include="nunit.framework">
      <HintPath>/Users/gokhankidak/UnityProjects/MainProjects/Battery Stack/Library/PackageCache/com.unity.ext.nunit@1.0.6/net35/unity-custom/nunit.framework.dll</HintPath>
      </Reference>
@@ -966,8 +978,18 @@
      <Reference Include="UnityEngine.UI">
      <HintPath>/Users/gokhankidak/UnityProjects/MainProjects/Battery Stack/Library/ScriptAssemblies/UnityEngine.UI.dll</HintPath>
      </Reference>
+     <Reference Include="com.unity.cinemachine.editor">
+     <HintPath>/Users/gokhankidak/UnityProjects/MainProjects/Battery Stack/Library/ScriptAssemblies/com.unity.cinemachine.editor.dll</HintPath>
+     </Reference>
+     <Reference Include="Cinemachine">
+     <HintPath>/Users/gokhankidak/UnityProjects/MainProjects/Battery Stack/Library/ScriptAssemblies/Cinemachine.dll</HintPath>
+     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="Assembly-CSharp-firstpass.csproj">
+      <Project>{ca9568bb-ec5e-31ac-4870-7713848af2df}</Project>
+      <Name>Assembly-CSharp-firstpass</Name>
+    </ProjectReference>
     <ProjectReference Include="Assembly-CSharp.csproj">
       <Project>{f9d8f569-520c-1121-7207-79a22b827b11}</Project>
       <Name>Assembly-CSharp</Name>
