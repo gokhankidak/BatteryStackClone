@@ -1,4 +1,4 @@
-using System;
+using DG.Tweening;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -38,7 +38,9 @@ public class BatteryBedController : MonoBehaviour
 
     public void PlaceBattery()
     {
-        var battery = Instantiate(batteryPrefab, batteryBedPositions[capacity-1].transform.position,Quaternion.identity);
+        var batteryPos = batteryBedPositions[capacity - 1].transform.position;
+        var battery = Instantiate(batteryPrefab,player.transform.position ,new Quaternion(0,180,0,0));
+        battery.transform.DOMove(batteryPos,.3f,true);
         battery.transform.parent = transform;
         capacity--;
     }

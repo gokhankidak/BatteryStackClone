@@ -33,11 +33,13 @@ public class TailMarker : MonoBehaviour
     }
     public void FollowNext()
     {
-        if (nextBattery.GetComponent<TailMarker>() == null) return;
-        Vector3 targetPos = nextBattery.GetComponent<TailMarker>().markedPosition;
-        Quaternion targetRot = nextBattery.GetComponent<TailMarker>().markedRotation;
+        var next = nextBattery.GetComponent<TailMarker>();
+        if (next == null) return;
+        Vector3 targetPos = next.markedPosition;
+        Quaternion targetRot = next.markedRotation;
 
-        transform.position = Vector3.Lerp(transform.position, targetPos, followingDistance*Time.deltaTime);
-        transform.rotation = Quaternion.Lerp(transform.rotation,targetRot,followingDistance*Time.deltaTime);
+        var ratio = followingDistance*Time.deltaTime;
+        transform.position = Vector3.Lerp(transform.position, targetPos, ratio);
+        transform.rotation = Quaternion.Lerp(transform.rotation,targetRot,ratio);
     }
 }

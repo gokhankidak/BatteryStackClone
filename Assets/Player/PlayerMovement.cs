@@ -1,10 +1,11 @@
 using System;
 using System.Collections;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 public class PlayerMovement : MonoBehaviour
 {
-    [SerializeField] private float _smooth = 1f;
+    [SerializeField] private float smoothRotationAngle = 2f;
     [SerializeField] private BatteryController batteryController;
     [SerializeField] private float speed = 5f;
     [SerializeField] private GameObject electricDestroyParticle;
@@ -98,7 +99,7 @@ public class PlayerMovement : MonoBehaviour
 
     void MoveBattery()
     {
-        transform.Translate(new Vector3(_currentSpeed * Time.deltaTime,0,-_inputValue*Time.deltaTime),Space.Self);
+        transform.Translate(new Vector3(_currentSpeed * Time.deltaTime,0,-_inputValue*_currentSpeed*Time.deltaTime/1000),Space.Self);
     }
 
     void SetNewBorders(GroundPositions positions)
@@ -112,7 +113,6 @@ public class PlayerMovement : MonoBehaviour
         if(_ground == null) return;
         
         var localPos = gameObject.transform.InverseTransformPoint(_ground.position) * transform.localScale.z;
-        
         if (Math.Abs(localPos.z) > Mathf.Abs(_leftBorder + _batteryWidth/2) && transform.rotation.y == _ground.rotation.y)
         {
             float distance = Math.Abs(localPos.z) - Mathf.Abs(_leftBorder + _batteryWidth / 2);
@@ -123,13 +123,13 @@ public class PlayerMovement : MonoBehaviour
     {
         float startTime = Time.time;
         
-        while (transform.rotation.y < _ground.rotation.y)
+        while (transform.rotation.y < ground.rotation.y)
         {
-            transform.RotateAround(pivotPosition.position,Vector3.up, _smooth);
+            transform.RotateAround(pivotPosition.position,Vector3.up, smoothRotationAngle);
                 //transform.rotation = Quaternion.Lerp(transform.rotation, ground.rotation, (Time.time - startTime)*1000*Time.deltaTime / _smooth);
             yield return new WaitForSeconds(0.01f);
         }
-        transform.rotation = _ground.rotation;
+        transform.rotation = ground.rotation;
         SetNormalSpeed();
     }
     
