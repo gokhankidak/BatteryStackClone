@@ -5,7 +5,7 @@ using UnityEngine;
 
 public class TailMarker : MonoBehaviour
 {
-    [SerializeField] private float followingDistance = .5f;
+    [SerializeField] private float followingDistance;
     public Transform nextBattery;
     [HideInInspector]
     public Vector3 markedPosition;
