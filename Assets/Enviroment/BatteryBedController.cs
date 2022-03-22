@@ -40,7 +40,7 @@ public class BatteryBedController : MonoBehaviour
     {
         var batteryPos = batteryBedPositions[capacity - 1].transform.position;
         var battery = Instantiate(batteryPrefab,player.transform.position ,new Quaternion(0,180,0,0));
-        battery.transform.DOMove(batteryPos,.3f,true);
+        battery.transform.DOMove(batteryPos,.1f,true);
         battery.transform.parent = transform;
         capacity--;
     }

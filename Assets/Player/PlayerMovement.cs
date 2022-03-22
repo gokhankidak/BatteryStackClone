@@ -1,5 +1,6 @@
 using System;
 using System.Collections;
+using System.Threading;
 using UnityEngine;
 using UnityEngine.Serialization;
 
@@ -9,15 +10,16 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] private BatteryController batteryController;
     [SerializeField] private float speed = 5f;
     [SerializeField] private GameObject electricDestroyParticle;
-    [SerializeField] private Transform pivotPosition;
+    [SerializeField] private Transform pivotPoint;
+    [SerializeField] private Transform _ground ;
     
     private float _inputPos;
     private float _inputValue,_velocity,_leftBorder,_rightBorder;
     private float _currentSpeed,_slowSpeed;
     private float _batteryWidth;
-    
+    private bool _isRotating = false;
+
     private Rigidbody _rb;
-    private Transform _ground;
     private PlayerInput _playerInput;
     
     
@@ -43,9 +45,9 @@ public class PlayerMovement : MonoBehaviour
         else if(collision.gameObject.layer == LayerMask.NameToLayer("GroundRotation") && collision.transform != _ground)
         {
             _ground = collision.transform;
+            StartCoroutine(RotateBattery(_ground));
             _currentSpeed = 0;
             SetNewBorders(collision.gameObject.GetComponent<GroundPositions>());
-            StartCoroutine(RotateBattery(_ground));
         }
 
         else if (collision.gameObject.layer == LayerMask.NameToLayer("Grinder"))
@@ -90,16 +92,21 @@ public class PlayerMovement : MonoBehaviour
         _inputValue = _playerInput.GetInputValue();
     }
 
-    // Update is called once per frame
+    private void LateUpdate()
+    {
+        KeepInBorders();
+    }
+
     void FixedUpdate()
     {
         MoveBattery();
-        KeepInBorders();
     }
 
     void MoveBattery()
     {
-        transform.Translate(new Vector3(_currentSpeed * Time.deltaTime,0,-_inputValue*_currentSpeed*Time.deltaTime/1000),Space.Self);
+        var moveRatio = _inputValue * _currentSpeed * Time.deltaTime / 1000;
+        transform.Translate(new Vector3(_currentSpeed * Time.deltaTime,0,-moveRatio),Space.Self);
+        if(!_isRotating) transform.eulerAngles = new Vector3(0, moveRatio*200 + _ground.eulerAngles.y, 0);
     }
 
     void SetNewBorders(GroundPositions positions)
@@ -111,24 +118,26 @@ public class PlayerMovement : MonoBehaviour
     private void KeepInBorders()
     {
         if(_ground == null) return;
-        
         var localPos = gameObject.transform.InverseTransformPoint(_ground.position) * transform.localScale.z;
-        if (Math.Abs(localPos.z) > Mathf.Abs(_leftBorder + _batteryWidth/2) && transform.rotation.y == _ground.rotation.y)
+
+        if (Math.Abs(localPos.z) > Mathf.Abs(_leftBorder + _batteryWidth/2))
         {
             float distance = Math.Abs(localPos.z) - Mathf.Abs(_leftBorder + _batteryWidth / 2);
-            transform.Translate(new Vector3(0,0,distance*Mathf.Sign(localPos.z)),_ground); 
+            if(!_isRotating) transform.Translate(new Vector3(0,0,distance*Mathf.Sign(localPos.z)),_ground);
         }
     }
     IEnumerator RotateBattery(Transform ground)
     {
-        float startTime = Time.time;
-        
+        _isRotating = true;
+        transform.parent = pivotPoint;
         while (transform.rotation.y < ground.rotation.y)
         {
-            transform.RotateAround(pivotPosition.position,Vector3.up, smoothRotationAngle);
-                //transform.rotation = Quaternion.Lerp(transform.rotation, ground.rotation, (Time.time - startTime)*1000*Time.deltaTime / _smooth);
+            pivotPoint.Rotate(new Vector3(0, smoothRotationAngle, 0));
             yield return new WaitForSeconds(0.01f);
         }
+
+        _isRotating = false;
+        transform.parent = null;
         transform.rotation = ground.rotation;
         SetNormalSpeed();
     }
