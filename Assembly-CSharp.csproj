@@ -59,12 +59,7 @@
      <Compile Include="Assets/JMO Assets/Cartoon FX/Demo/Assets/CFX_Demo_New.cs" />
      <Compile Include="Assets/JMO Assets/Cartoon FX/Scripts/CFX_LightFlicker.cs" />
      <Compile Include="Assets/JMO Assets/Cartoon FX/Scripts/CFX_AutoDestructShuriken.cs" />
-     <Compile Include="Assets/PathCreator/Examples/Scripts/PathSceneTool.cs" />
-     <Compile Include="Assets/PathCreator/Examples/Scripts/PathSpawner.cs" />
-     <Compile Include="Assets/PathCreator/Examples/Scripts/PathPlacer.cs" />
-     <Compile Include="Assets/PathCreator/Examples/Scripts/RoadMeshCreator.cs" />
-     <Compile Include="Assets/PathCreator/Examples/Scripts/PathFollower.cs" />
-     <Compile Include="Assets/PathCreator/Examples/Scripts/GeneratePathExample.cs" />
+     <Compile Include="Assets/BezierCurveCreator.cs" />
      <None Include="Assets/TextMesh Pro/Shaders/TMPro.cginc" />
      <None Include="Assets/TextMesh Pro/Shaders/TMP_SDF-Mobile Overlay.shader" />
      <None Include="Assets/JMO Assets/Cartoon FX/Shaders/CFX3 Multiply Color.shader" />
@@ -759,14 +754,6 @@
     <ProjectReference Include="Assembly-CSharp-firstpass.csproj">
       <Project>{ca9568bb-ec5e-31ac-4870-7713848af2df}</Project>
       <Name>Assembly-CSharp-firstpass</Name>
-    </ProjectReference>
-    <ProjectReference Include="PathCreatorEditor.csproj">
-      <Project>{56a74f0c-318e-40cb-537e-6d0a6f714e47}</Project>
-      <Name>PathCreatorEditor</Name>
-    </ProjectReference>
-    <ProjectReference Include="PathCreator.csproj">
-      <Project>{e5549743-4e37-8529-4423-fec1ea0d3c3b}</Project>
-      <Name>PathCreator</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

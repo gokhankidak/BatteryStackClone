@@ -715,14 +715,6 @@
      </Reference>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="PathCreatorEditor.csproj">
-      <Project>{56a74f0c-318e-40cb-537e-6d0a6f714e47}</Project>
-      <Name>PathCreatorEditor</Name>
-    </ProjectReference>
-    <ProjectReference Include="PathCreator.csproj">
-      <Project>{e5549743-4e37-8529-4423-fec1ea0d3c3b}</Project>
-      <Name>PathCreator</Name>
-    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it.

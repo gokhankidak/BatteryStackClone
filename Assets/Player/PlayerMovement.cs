@@ -1,33 +1,34 @@
-using System;
-using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
-using PathCreation;
 
 public class PlayerMovement : MonoBehaviour
 {
     [SerializeField] private BatteryController batteryController;
     [SerializeField] private float speed = 5f;
+    [SerializeField] private float rotationRatio;
     [SerializeField] private GameObject electricDestroyParticle;
-    [SerializeField] private PathCreator pathCreator;
-    
-    private float _inputPos,_distanceTravelled = 0;
+    [SerializeField] private List<Transform> pathPoints;
+
+    private Transform startTransform,targetTransform;
+    private int index = 0;
+    private float _inputPos,_distance,_distanceTravelled = 0;
     private float _inputValue,_velocity;
     private float _currentSpeed,_slowSpeed;
     private float _horizontalPos = 0;
     private float _batteryWidth;
-    private Rigidbody _rb;
     private PlayerInput _playerInput;
-    
-    
+
     // Start is called before the first frame update
     void Awake()
     {
-        _batteryWidth = gameObject.GetComponent<Renderer>().localBounds.size.z*transform.localScale.z;
-
+        _batteryWidth = gameObject.GetComponent<Renderer>().localBounds.size.z * transform.localScale.z;
         _currentSpeed = speed;
         _slowSpeed = speed / 3;
         _playerInput = GetComponent<PlayerInput>();
-        _rb = GetComponent<Rigidbody>();
+        
+        targetTransform = pathPoints[index];
+        index++;
+        SetDestinationPoints();
     }
 
     #region CollisionMethods
@@ -73,30 +74,46 @@ public class PlayerMovement : MonoBehaviour
     
     private void Update()
     {
-        _inputValue = _playerInput.GetInputValue()/100;
+        _inputValue = _playerInput.GetInputValue();
         _horizontalPos = Mathf.Clamp(_horizontalPos + _inputValue, -2.5f, 2.5f);
     }
 
     void FixedUpdate()
     {
-        MoveBattery();
+        if(pathPoints.Count >= index)
+            MoveBattery();
     }
 
+    void SetDestinationPoints()
+    {
+        startTransform = targetTransform;
+        targetTransform = pathPoints[index];
+        _distance = Vector3.Distance(startTransform.position, targetTransform.position);
+        _distanceTravelled = 0;
+        index++;
+    }
+    
     void MoveBattery()
     {
-        _distanceTravelled += _currentSpeed * Time.deltaTime;
-        var path = pathCreator.path;
-        var point = path.GetPointAtDistance(_distanceTravelled);
+        if (_distanceTravelled >= 1) SetDestinationPoints();
+        
+        _distanceTravelled += (1 / _distance) * _currentSpeed * Time.deltaTime;
+        Vector3 lerpPos = Vector3.Lerp(startTransform.position, targetTransform.position, _distanceTravelled);
+        Quaternion lerpRot = Quaternion.Lerp(startTransform.rotation,targetTransform.rotation,_distanceTravelled);
 
-        transform.position = new Vector3(point.x, transform.position.y, point.z);
+        transform.position = new Vector3(lerpPos.x, transform.position.y, lerpPos.z);
         transform.position  = transform.TransformPoint(0,0,-_horizontalPos);
-        transform.eulerAngles = new Vector3(0, _inputValue*1000 + path.GetRotationAtDistance(_distanceTravelled).eulerAngles.y-90, 0);
+        
+        transform.rotation = lerpRot;
+        transform.eulerAngles += new Vector3(0, Mathf.Clamp(_inputValue * rotationRatio,-45,45) , 0);
     }
 
     private void SetSlowSpeed()
     {
-        _distanceTravelled -= _batteryWidth/3;
+        float playerMoveBackDistance = _batteryWidth / _distance/4;
+        
         _currentSpeed = _slowSpeed;
+        _distanceTravelled -= playerMoveBackDistance;
         Instantiate(electricDestroyParticle, transform.position, Quaternion.identity);
         batteryController.isFollowing = false;
     }
