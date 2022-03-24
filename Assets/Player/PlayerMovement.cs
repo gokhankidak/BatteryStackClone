@@ -3,12 +3,25 @@ using UnityEngine;
 
 public class PlayerMovement : MonoBehaviour
 {
+
+    public Vector3 playerPos
+    {
+        get => _pathLerpPos;
+    }
+    public Quaternion playerRot{
+        get => _pathlerpRot;
+    }
+    
     [SerializeField] private BatteryController batteryController;
     [SerializeField] private float speed = 5f;
     [SerializeField] private float rotationRatio;
     [SerializeField] private GameObject electricDestroyParticle;
     [SerializeField] private List<Transform> pathPoints;
+    private float _rotationLimit = 30;
+    private float _horizontalLimit = 2.5f;
 
+    private Vector3 _pathLerpPos;
+    private Quaternion _pathlerpRot;
     private Transform startTransform,targetTransform;
     private int index = 0;
     private float _inputPos,_distance,_distanceTravelled = 0;
@@ -33,12 +46,12 @@ public class PlayerMovement : MonoBehaviour
 
     #region CollisionMethods
     
-    private void OnCollisionEnter(Collision collision)//başka Scriptin içine al
+    private void OnCollisionEnter(Collision collision)
     {
         if (collision.gameObject.layer == LayerMask.NameToLayer("Grinder"))
         {
             batteryController.DestroyBattery();
-            SetSlowSpeed();
+            OnHitObstacle();
         }
         
         else if(collision.gameObject.layer == LayerMask.NameToLayer("BatteryBed"))
@@ -47,7 +60,7 @@ public class PlayerMovement : MonoBehaviour
             {
                 collision.gameObject.GetComponent<BatteryBedController>().PlaceBattery();
                 batteryController.DestroyBattery();
-                SetSlowSpeed();
+                OnHitObstacle();
             }
             else
             {
@@ -75,7 +88,7 @@ public class PlayerMovement : MonoBehaviour
     private void Update()
     {
         _inputValue = _playerInput.GetInputValue();
-        _horizontalPos = Mathf.Clamp(_horizontalPos + _inputValue, -2.5f, 2.5f);
+        _horizontalPos = Mathf.Clamp(_horizontalPos + _inputValue, -_horizontalLimit, _horizontalLimit);
     }
 
     void FixedUpdate()
@@ -96,19 +109,20 @@ public class PlayerMovement : MonoBehaviour
     void MoveBattery()
     {
         if (_distanceTravelled >= 1) SetDestinationPoints();
-        
-        _distanceTravelled += (1 / _distance) * _currentSpeed * Time.deltaTime;
-        Vector3 lerpPos = Vector3.Lerp(startTransform.position, targetTransform.position, _distanceTravelled);
-        Quaternion lerpRot = Quaternion.Lerp(startTransform.rotation,targetTransform.rotation,_distanceTravelled);
 
-        transform.position = new Vector3(lerpPos.x, transform.position.y, lerpPos.z);
+        _distanceTravelled += (1 / _distance) * _currentSpeed * Time.deltaTime;
+        _pathLerpPos = Vector3.Lerp(startTransform.position, targetTransform.position, _distanceTravelled);
+        _pathlerpRot = Quaternion.Lerp(startTransform.rotation,targetTransform.rotation, _distanceTravelled);
+
+        transform.position = new Vector3(_pathLerpPos.x, transform.position.y, _pathLerpPos.z);
         transform.position  = transform.TransformPoint(0,0,-_horizontalPos);
         
-        transform.rotation = lerpRot;
-        transform.eulerAngles += new Vector3(0, Mathf.Clamp(_inputValue * rotationRatio,-45,45) , 0);
+        transform.rotation = _pathlerpRot;
+        var rotationAmount = Mathf.Clamp(_inputValue * rotationRatio,-_rotationLimit,_rotationLimit);
+        transform.eulerAngles += new Vector3(0, rotationAmount , 0);
     }
 
-    private void SetSlowSpeed()
+    private void OnHitObstacle()
     {
         float playerMoveBackDistance = _batteryWidth / _distance/4;
         

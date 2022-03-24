@@ -134,6 +134,7 @@ GameObject:
   - component: {fileID: 71681124}
   - component: {fileID: 71681126}
   - component: {fileID: 71681125}
+  - component: {fileID: 71681127}
   m_Layer: 8
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -148,14 +149,14 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 71681123}
-  m_LocalRotation: {x: 0.099842146, y: 0.689587, z: -0.09687396, w: 0.7107157}
-  m_LocalPosition: {x: -46.98, y: 19, z: -0.66666675}
-  m_LocalScale: {x: 1.0006076, y: 0.99986184, z: 0.99832076}
+  m_LocalRotation: {x: 0.13266726, y: 0.6945498, z: -0.13266729, w: 0.6945498}
+  m_LocalPosition: {x: 20.7, y: 10.9, z: 0}
+  m_LocalScale: {x: 1.5000005, y: 0.5000636, z: 0.4999365}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 1482992380}
-  m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 62.662, y: 86.345, z: 0}
+  m_Father: {fileID: 0}
+  m_RootOrder: 8
+  m_LocalEulerAnglesHint: {x: 21.628, y: 90, z: 0}
 --- !u!81 &71681125
 AudioListener:
   m_ObjectHideFlags: 0
@@ -207,6 +208,21 @@ Camera:
   m_OcclusionCulling: 1
   m_StereoConvergence: 10
   m_StereoSeparation: 0.022
+--- !u!114 &71681127
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 71681123}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a0cd2f3479afa4fc98826022486dbd8c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  pathPos: {fileID: 1482992375}
+  positionOffset: {x: 0, y: 7, z: -50}
+  rotationOffset: {x: 20, y: 90, z: 0}
 --- !u!1 &105858787
 GameObject:
   m_ObjectHideFlags: 0
@@ -318,6 +334,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d7a9329f587174f2f8dc6b7c1d951cad, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  leftBorder: 0
+  rightBorder: 0
 --- !u!1 &142386832
 GameObject:
   m_ObjectHideFlags: 0
@@ -1011,6 +1029,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d7a9329f587174f2f8dc6b7c1d951cad, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  leftBorder: 0
+  rightBorder: 0
 --- !u!64 &961529047
 MeshCollider:
   m_ObjectHideFlags: 0
@@ -1545,7 +1565,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6c236ddd91d86413890efe355466487f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  sideSpeed: 0.005
+  sideSpeed: 0.0005
 --- !u!114 &1482992375
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1669,8 +1689,7 @@ Transform:
   m_LocalPosition: {x: 40.4, y: 0.5, z: -1.7}
   m_LocalScale: {x: 0.5, y: 0.5, z: 1.4999999}
   m_ConstrainProportionsScale: 0
-  m_Children:
-  - {fileID: 71681124}
+  m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -1726,7 +1745,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7379694717656264899, guid: 7c8be117e97074ef5b36ec61fb5690d9, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 7.9
+      value: 1.89
       objectReference: {fileID: 0}
     - target: {fileID: 7379694717656264899, guid: 7c8be117e97074ef5b36ec61fb5690d9, type: 3}
       propertyPath: m_LocalRotation.w
@@ -1912,6 +1931,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d7a9329f587174f2f8dc6b7c1d951cad, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  leftBorder: 0
+  rightBorder: 0
 --- !u!64 &1621479675
 MeshCollider:
   m_ObjectHideFlags: 0
@@ -2395,6 +2416,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d7a9329f587174f2f8dc6b7c1d951cad, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  leftBorder: 0
+  rightBorder: 0
 --- !u!4 &2088641924 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 7379694717656264899, guid: 7c8be117e97074ef5b36ec61fb5690d9, type: 3}
@@ -2463,6 +2486,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d7a9329f587174f2f8dc6b7c1d951cad, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  leftBorder: 0
+  rightBorder: 0
 --- !u!64 &2121024366
 MeshCollider:
   m_ObjectHideFlags: 0

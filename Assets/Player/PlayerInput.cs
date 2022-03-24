@@ -53,7 +53,7 @@ public class PlayerInput : MonoBehaviour
     private void HandleTouchBegan()
     {
         _startPosX = Input.mousePosition.x;
-        _localChange=Vector3.zero;
+        _localChange = Vector3.zero;
     }
 
     public float GetInputValue()

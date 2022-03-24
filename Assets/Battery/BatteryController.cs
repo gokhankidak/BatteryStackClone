@@ -18,8 +18,7 @@ public class BatteryController : MonoBehaviour
     {
         AddBatteries(totalBatteriesCount);
     }
-
-    //test purpose only
+    
     public void AddOneBat()
     {
         AddBatteries(1);
@@ -75,7 +74,6 @@ public class BatteryController : MonoBehaviour
         Debug.Log("batterycount : "+_activeBatteriesPool.Count);
         if (_activeBatteriesPool.Count > 1)
         {
-            //TODO play anim for situations
             tempObject = _activeBatteriesPool[0];
             _activeBatteriesPool.RemoveAt(0);
             firstBattery.transform.position = tempObject.transform.position;
